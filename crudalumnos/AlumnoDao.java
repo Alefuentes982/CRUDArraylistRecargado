@@ -6,6 +6,8 @@
 package crudalumnos;
 
 import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -32,6 +34,23 @@ public class AlumnoDao {
        alumnos.add(new Alumno("1-1", "Susana", (byte)22));
        alumnos.add(new Alumno("2-2", "Juan", (byte)20));
        alumnos.add(new Alumno("3-3", "David", (byte)21));
+       
+    }
+    
+    public static void cargarDatosEnTabla(JTable tabla) {
+      DefaultTableModel modeloTabla = new DefaultTableModel();
+
+      String[] columnas = {"Rut", "Nombre", "Edad"}; // Define las columnas de la tabla
+      
+      modeloTabla.setColumnIdentifiers(columnas); // Conf. las columnas en el modelo de la tabla
+
+      // Agregar filas al modelo de la tabla
+      for (Alumno alumno : obtenerDatos()) {
+        Object[] fila = {alumno.getRut(), alumno.getNombre(), alumno.getEdad()};
+        modeloTabla.addRow(fila);
+      }
+
+      tabla.setModel(modeloTabla); // Conf. el modelo en la tabla
     }
     
     public static Alumno buscar(String rut){
