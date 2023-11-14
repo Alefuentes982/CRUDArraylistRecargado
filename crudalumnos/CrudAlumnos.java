@@ -279,7 +279,12 @@ public class CrudAlumnos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CrudAlumnos().setVisible(true);
+                //new CrudAlumnos().setVisible(true);
+               CrudAlumnos frame = new CrudAlumnos();
+            // Centrar la ventana en la pantalla
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+                
             }
         });
     }

@@ -4,6 +4,10 @@
  */
 package login;
 
+import crudalumnos.CrudAlumnos;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Alejandro
@@ -43,9 +47,25 @@ public class form extends javax.swing.JFrame {
 
         jLabel3.setText("CONTRASEÑA");
 
+        txt_email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_emailActionPerformed(evt);
+            }
+        });
+
         jButton1.setText("INGRESAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("LIMPIAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,6 +116,56 @@ public class form extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        txt_email.setText("");
+        txt_pass.setText("");
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txt_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_emailActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txt_emailActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>(); //guarda los usuarios
+         
+        Usuario admin = new Usuario("admin@admin.cl", "admin"); //crea el usuario admin
+        
+        usuarios.add(admin); //agrega el usuario al arraylist
+        
+        String correo = txt_email.getText();
+        String password = txt_pass.getText();
+        
+        boolean ingreso = false;
+        
+        for (int i = 0; i < usuarios.size(); i++) {
+            
+            if(correo.equals(usuarios.get(i).getCorreo())){
+                if(password.equals(usuarios.get(i).getClave())){
+                    //aqui se envia al sistema crud
+                    JOptionPane.showMessageDialog(this, "Bienvenido al sistema");
+                    ingreso = true;
+                    CrudAlumnos vistaCrud = new CrudAlumnos();
+                    vistaCrud.setVisible(true);
+                    this.setVisible(false);
+                    break;
+                } 
+                else{
+                     JOptionPane.showMessageDialog(this, "Error de contraseña");
+                     ingreso = true;
+                     break;
+                }
+            } 
+        }
+        if (ingreso == false){
+        JOptionPane.showMessageDialog(this, "Usuario no existe");
+      
+    }//GEN-LAST:event_jButton1ActionPerformed
+  }
     /**
      * @param args the command line arguments
      */

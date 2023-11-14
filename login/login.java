@@ -11,6 +11,12 @@ package login;
 public class login {
     public static void main(String[] args){
         
+        form vista = new form();
+        vista.setVisible(true); //para que mi formulario sea visible
+        vista.setLocationRelativeTo(null); //para que lo posicione en el centro (null=ningun espacio pero java lo deja en el centro)
+        
+        
+        
     }
     
 }
