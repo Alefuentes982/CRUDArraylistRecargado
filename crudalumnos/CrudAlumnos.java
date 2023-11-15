@@ -72,20 +72,20 @@ public class CrudAlumnos extends javax.swing.JFrame {
         jButton2Buscar = new javax.swing.JButton();
         jButton3Eliminar = new javax.swing.JButton();
         jButton4Modificar = new javax.swing.JButton();
-        jButton5Listar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblAlumno = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 255));
-        jLabel1.setText("CRUD DE ALUMNOS");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
+        jLabel1.setBackground(new java.awt.Color(255, 255, 102));
+        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        jLabel1.setText("CRUD ALUMNOS");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 230, 40));
 
         jLabel2.setText("Rut:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
@@ -149,14 +149,6 @@ public class CrudAlumnos extends javax.swing.JFrame {
         });
         getContentPane().add(jButton4Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 210, 130, -1));
 
-        jButton5Listar.setText("Listar");
-        jButton5Listar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ListarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton5Listar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 130, -1));
-
         tblAlumno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -193,6 +185,10 @@ public class CrudAlumnos extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 10)); // NOI18N
         jLabel5.setText("puede seleccionar un elemento de la tabla para operaciones CRUD");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, -1));
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/crudalumnos/ICONS/duoc.png"))); // NOI18N
+        jButton3.setText("jButton3");
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 190, 50));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -296,11 +292,6 @@ public class CrudAlumnos extends javax.swing.JFrame {
               }  
           
     }//GEN-LAST:event_jButton4ModificarActionPerformed
-
-    private void jButton5ListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ListarActionPerformed
-        // TODO add your handling code here:
-       AlumnoDao.cargarDatosEnTabla(tblAlumno);            
-    }//GEN-LAST:event_jButton5ListarActionPerformed
 
     private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
         // TODO add your handling code here:
@@ -413,9 +404,9 @@ public class CrudAlumnos extends javax.swing.JFrame {
     private javax.swing.JButton jButton1Agregar;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton2Buscar;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton3Eliminar;
     private javax.swing.JButton jButton4Modificar;
-    private javax.swing.JButton jButton5Listar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
