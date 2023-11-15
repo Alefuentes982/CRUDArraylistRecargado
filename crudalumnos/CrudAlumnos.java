@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package crudalumnos;
+import plantillapdfmain.PlantillaPdfMain;
+
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 import static crudalumnos.AlumnoDao.cargarDatosEnTabla;
 import java.awt.Point;
@@ -14,6 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
 import java.util.Collections;
+import plantillapdfmain.PlantillaPdfMain;
+import static plantillapdfmain.PlantillaPdfMain.main;
 /**
  *
  * @author Laboratorio
@@ -111,37 +117,37 @@ public class CrudAlumnos extends javax.swing.JFrame {
         });
         getContentPane().add(jTextFieldEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 190, -1));
 
-        jButton1Agregar.setText("Agregar");
+        jButton1Agregar.setText("Agregar Registro");
         jButton1Agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1AgregarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 80, -1));
+        getContentPane().add(jButton1Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 140, -1));
 
-        jButton2Buscar.setText("Buscar");
+        jButton2Buscar.setText("Buscar por RUT");
         jButton2Buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2BuscarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 80, -1));
+        getContentPane().add(jButton2Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 120, -1));
 
-        jButton3Eliminar.setText("Eliminar");
+        jButton3Eliminar.setText("Eliminar por RUT");
         jButton3Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3EliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 80, -1));
+        getContentPane().add(jButton3Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 140, -1));
 
-        jButton4Modificar.setText("Modificar");
+        jButton4Modificar.setText("Modificar por RUT");
         jButton4Modificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ModificarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, 90, -1));
+        getContentPane().add(jButton4Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 210, 130, -1));
 
         jButton5Listar.setText("Listar");
         jButton5Listar.addActionListener(new java.awt.event.ActionListener() {
@@ -169,9 +175,19 @@ public class CrudAlumnos extends javax.swing.JFrame {
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 450, 160));
 
         jButton1.setText("Crear informe pdf");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 130, -1));
 
         jButton2.setText("Ver informe pdf");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 130, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 10)); // NOI18N
@@ -192,56 +208,93 @@ public class CrudAlumnos extends javax.swing.JFrame {
         jTextFieldEdad.setText("");
     }
     
+    public boolean validaJtextNull(){
+        boolean estado = false;
+        if (jTextFieldRut.getText().trim().length() == 0){
+              JOptionPane.showMessageDialog(null,"campo rut debe contener datos");
+              estado = true;
+        }else if (jTextFieldNombre.getText().trim().length() == 0){
+             JOptionPane.showMessageDialog(null,"campo nombre debe contener datos");
+             estado = true;
+        }else if (jTextFieldEdad.getText().trim().length() == 0){
+            JOptionPane.showMessageDialog(null,"campo Edad debe contener datos");
+            estado = true;
+        }
+        return estado;
+    }
+     
     
     
     private void jButton1AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1AgregarActionPerformed
         // TODO add your handling code here:
         //definicion de variables
+      
+     try{
         
-        String rut = "";
-        String nombre = "";
-        Byte edad = 0;
+        if (validaJtextNull()== true){
+           System.out.println("Campos vacios"); 
+         }else{    validaJtextNull();  
+          
+          String rut = "";
+          String nombre = "";
+          Byte edad = 0;
         
         //lectura de datos
-        rut=jTextFieldRut.getText();
-        nombre=jTextFieldNombre.getText();
-        edad=Byte.parseByte(jTextFieldEdad.getText());
+          rut=jTextFieldRut.getText();
+          nombre=jTextFieldNombre.getText();
+          edad=Byte.parseByte(jTextFieldEdad.getText());
         
-        Alumno alumno = new Alumno(rut, nombre, edad);
+          Alumno alumno = new Alumno(rut, nombre, edad);
         
-        if (AlumnoDao.agregar(alumno) == true){
-           JOptionPane.showMessageDialog(null, "Alumno ingresado exitosamente!!");
-        }else{
-           JOptionPane.showMessageDialog(null, "Datos de Alumno no agregados");
+          if (AlumnoDao.agregar(alumno) == true){
+             JOptionPane.showMessageDialog(null, "Alumno ingresado exitosamente!!");
+          }else{
+             JOptionPane.showMessageDialog(null, "Datos de Alumno no agregados");
 
-        }
-        limpiar();
-        AlumnoDao.cargarDatosEnTabla(tblAlumno);
+          }
+          limpiar();
+          AlumnoDao.cargarDatosEnTabla(tblAlumno);   
+         }
+       } catch(Exception e){
+            System.out.println(e.getMessage());
+      }  
+        
 
     }//GEN-LAST:event_jButton1AgregarActionPerformed
 
     private void jButton4ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ModificarActionPerformed
         // TODO add your handling code here:
-        String rut = "";
-        rut=jTextFieldRut.getText();
+      try{
         
-        Alumno alumnoExistente = AlumnoDao.buscar(rut);
-        if (alumnoExistente != null){
-            String nuevoNombre = jTextFieldNombre.getText();
-            byte nuevaEdad = Byte.parseByte(jTextFieldEdad.getText());
+          if (validaJtextNull()== true){
+             System.out.println("Campos vacios"); 
+            }else{      
+              String rut = "";
+              rut=jTextFieldRut.getText();
+        
+              Alumno alumnoExistente = AlumnoDao.buscar(rut);
+          
+             if (alumnoExistente != null){
+                String nuevoNombre = jTextFieldNombre.getText();
+                byte nuevaEdad = Byte.parseByte(jTextFieldEdad.getText());
             
-            Alumno nuevoAlumno = new Alumno(rut, nuevoNombre, nuevaEdad);
+                Alumno nuevoAlumno = new Alumno(rut, nuevoNombre, nuevaEdad);
             
-            if (AlumnoDao.modificar(rut, nuevoAlumno)){
-               JOptionPane.showMessageDialog(null, "Alumno modificado exitosamente!!");
-            }else{
-                 JOptionPane.showMessageDialog(null, "error, nos e pudo modificar registro!");
-            }
-        }else{
-             JOptionPane.showMessageDialog(null, "No se encontro el Alumno");
-        }
-        limpiar();
-        AlumnoDao.cargarDatosEnTabla(tblAlumno);
+               if (AlumnoDao.modificar(rut, nuevoAlumno)){
+                    JOptionPane.showMessageDialog(null, "Alumno modificado exitosamente!!");
+                 }else{
+                   JOptionPane.showMessageDialog(null, "error, nos e pudo modificar registro!");
+                 }
+                 }else{
+                   JOptionPane.showMessageDialog(null, "No se encontro el Alumno");
+                }
+               limpiar();
+               AlumnoDao.cargarDatosEnTabla(tblAlumno);
+             }
+            } catch(Exception e){
+              System.out.println(e.getMessage());
+              }  
+          
     }//GEN-LAST:event_jButton4ModificarActionPerformed
 
     private void jButton5ListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ListarActionPerformed
@@ -260,6 +313,7 @@ public class CrudAlumnos extends javax.swing.JFrame {
     private void jButton2BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2BuscarActionPerformed
         // TODO add your handling code here:
         
+        
         String rut = "";
         rut=jTextFieldRut.getText();
         
@@ -277,17 +331,42 @@ public class CrudAlumnos extends javax.swing.JFrame {
 
     private void jButton3EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3EliminarActionPerformed
         // TODO add your handling code here:
-        String rut = "";
-        rut=jTextFieldRut.getText();
+        try{
+         //if (validaJtextNull()== true){
+          //   System.out.println("Campos vacios"); 
+        // }else{
+          String rut = "";
+          rut=jTextFieldRut.getText();
         
-        if(AlumnoDao.eliminar(rut)){
-           JOptionPane.showMessageDialog(null, "registro eliminado exitosamente");
+          if(AlumnoDao.eliminar(rut)){
+             JOptionPane.showMessageDialog(null, "registro eliminado exitosamente");
         }else{
            JOptionPane.showMessageDialog(null, "no se puede eliminar registro, rut no existe");
         } 
-        limpiar();
-        AlumnoDao.cargarDatosEnTabla(tblAlumno);
+          limpiar();
+          AlumnoDao.cargarDatosEnTabla(tblAlumno);
+         //}
+             
+       
+          //limpiar();
+         
+        }catch(Exception e){
+          System.out.println(e.getMessage());
+      }  
+       
     }//GEN-LAST:event_jButton3EliminarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        PlantillaPdfMain.creaplantilla();
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        PlantillaPdfMain.abrirPDF();
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
