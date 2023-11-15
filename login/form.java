@@ -78,10 +78,10 @@ public class form extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
-                        .addGap(37, 37, 37)
+                        .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jLabel1)))
@@ -125,8 +125,10 @@ public class form extends javax.swing.JFrame {
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>(); //guarda los usuarios
          
         Usuario admin = new Usuario("admin@admin.cl", "admin"); //crea el usuario admin
-        
-        usuarios.add(admin); //agrega el usuario al arraylist
+        usuarios.add(admin);
+        Usuario useradmin = new Usuario("useradmin@useradmin.cl", "useradmin");
+        usuarios.add(useradmin);
+         //agrega el usuario al arraylist
         
         String correo = txt_email.getText();
         String password = txt_pass.getText();
