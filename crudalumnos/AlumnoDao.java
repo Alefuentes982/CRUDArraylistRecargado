@@ -6,6 +6,7 @@
 package crudalumnos;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -49,7 +50,7 @@ public class AlumnoDao {
         Object[] fila = {alumno.getRut(), alumno.getNombre(), alumno.getEdad()};
         modeloTabla.addRow(fila);
       }
-
+      
       tabla.setModel(modeloTabla); // Conf. el modelo en la tabla
     }
     

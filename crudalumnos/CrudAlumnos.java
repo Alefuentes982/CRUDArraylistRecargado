@@ -6,11 +6,14 @@
 package crudalumnos;
 
 import static crudalumnos.AlumnoDao.cargarDatosEnTabla;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
-
+import java.util.Collections;
 /**
  *
  * @author Laboratorio
@@ -24,9 +27,25 @@ public class CrudAlumnos extends javax.swing.JFrame {
     public CrudAlumnos() {
         initComponents();
         AlumnoDao.llenar();
-       
+        AlumnoDao.cargarDatosEnTabla(tblAlumno);
+        //agrega el componente mouseListener y crea metodo para obtener datos de tabla
+        tblAlumno.addMouseListener(new MouseAdapter(){
+          public void mousePressed(MouseEvent Mouse_evt){  //creo el metodo custom mouse pressed e importo la libreria MouseEvent
+           //creo un obj de JTable
+            JTable table = (JTable) Mouse_evt.getSource();
+            Point point = Mouse_evt.getPoint(); //Clase que representa la ubicacion coordenadas como entero
+            int row = table.rowAtPoint(point); //almaceno el evento en una fila
+            if(Mouse_evt.getClickCount() == 1){ //si detecta un click ....
+               jTextFieldRut.setText(tblAlumno.getValueAt(tblAlumno.getSelectedRow(), 0).toString()); //llena el jtextfield con el valor d la row y la columna 1 corrspondiente al nombre en la tabla
+               jTextFieldNombre.setText(tblAlumno.getValueAt(tblAlumno.getSelectedRow(), 1).toString());
+               jTextFieldEdad.setText(tblAlumno.getValueAt(tblAlumno.getSelectedRow(), 2).toString());
+            }
+              
+          }   
+        });
     }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,10 +67,11 @@ public class CrudAlumnos extends javax.swing.JFrame {
         jButton3Eliminar = new javax.swing.JButton();
         jButton4Modificar = new javax.swing.JButton();
         jButton5Listar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1Visor = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblAlumno = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -62,34 +82,34 @@ public class CrudAlumnos extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
 
         jLabel2.setText("Rut:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
         jLabel3.setText("Nombre:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
 
         jLabel4.setText("Edad:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
         jTextFieldRut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldRutActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 220, -1));
+        getContentPane().add(jTextFieldRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 190, -1));
 
         jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 220, -1));
+        getContentPane().add(jTextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 190, -1));
 
         jTextFieldEdad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldEdadActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 220, -1));
+        getContentPane().add(jTextFieldEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 190, -1));
 
         jButton1Agregar.setText("Agregar");
         jButton1Agregar.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +117,7 @@ public class CrudAlumnos extends javax.swing.JFrame {
                 jButton1AgregarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, 80, -1));
+        getContentPane().add(jButton1Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 80, -1));
 
         jButton2Buscar.setText("Buscar");
         jButton2Buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -105,7 +125,7 @@ public class CrudAlumnos extends javax.swing.JFrame {
                 jButton2BuscarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, 80, -1));
+        getContentPane().add(jButton2Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 80, -1));
 
         jButton3Eliminar.setText("Eliminar");
         jButton3Eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -113,7 +133,7 @@ public class CrudAlumnos extends javax.swing.JFrame {
                 jButton3EliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 80, -1));
+        getContentPane().add(jButton3Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 80, -1));
 
         jButton4Modificar.setText("Modificar");
         jButton4Modificar.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +141,7 @@ public class CrudAlumnos extends javax.swing.JFrame {
                 jButton4ModificarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, 80, -1));
+        getContentPane().add(jButton4Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, 90, -1));
 
         jButton5Listar.setText("Listar");
         jButton5Listar.addActionListener(new java.awt.event.ActionListener() {
@@ -129,13 +149,7 @@ public class CrudAlumnos extends javax.swing.JFrame {
                 jButton5ListarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5Listar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 200, 80, -1));
-
-        jTextArea1Visor.setColumns(20);
-        jTextArea1Visor.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1Visor);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 320, 70));
+        getContentPane().add(jButton5Listar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 130, -1));
 
         tblAlumno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -152,7 +166,17 @@ public class CrudAlumnos extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblAlumno);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 440, 160));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 450, 160));
+
+        jButton1.setText("Crear informe pdf");
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 130, -1));
+
+        jButton2.setText("Ver informe pdf");
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 130, -1));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 10)); // NOI18N
+        jLabel5.setText("puede seleccionar un elemento de la tabla para operaciones CRUD");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -192,6 +216,7 @@ public class CrudAlumnos extends javax.swing.JFrame {
 
         }
         limpiar();
+        AlumnoDao.cargarDatosEnTabla(tblAlumno);
 
     }//GEN-LAST:event_jButton1AgregarActionPerformed
 
@@ -215,19 +240,13 @@ public class CrudAlumnos extends javax.swing.JFrame {
         }else{
              JOptionPane.showMessageDialog(null, "No se encontro el Alumno");
         }
-
+        limpiar();
+        AlumnoDao.cargarDatosEnTabla(tblAlumno);
     }//GEN-LAST:event_jButton4ModificarActionPerformed
 
     private void jButton5ListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ListarActionPerformed
         // TODO add your handling code here:
-       AlumnoDao.cargarDatosEnTabla(tblAlumno);        
-        
-        for(Alumno alumno : AlumnoDao.obtenerDatos()){
-            
-            jTextArea1Visor.append(alumno.toString()+"\n");
-            
-        }
-        
+       AlumnoDao.cargarDatosEnTabla(tblAlumno);            
     }//GEN-LAST:event_jButton5ListarActionPerformed
 
     private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
@@ -266,6 +285,8 @@ public class CrudAlumnos extends javax.swing.JFrame {
         }else{
            JOptionPane.showMessageDialog(null, "no se puede eliminar registro, rut no existe");
         } 
+        limpiar();
+        AlumnoDao.cargarDatosEnTabla(tblAlumno);
     }//GEN-LAST:event_jButton3EliminarActionPerformed
 
     /**
@@ -309,7 +330,9 @@ public class CrudAlumnos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton1Agregar;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton2Buscar;
     private javax.swing.JButton jButton3Eliminar;
     private javax.swing.JButton jButton4Modificar;
@@ -318,9 +341,8 @@ public class CrudAlumnos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1Visor;
     private javax.swing.JTextField jTextFieldEdad;
     private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextField jTextFieldRut;
