@@ -25,7 +25,7 @@ Para ejecutar, debe cargar el proyecto, ejecutar el archivo login.java del packa
 
   Se pretende a futuro que este codigo incluya mejoras en el flujo y validaciones, además de poder servir de base  para crear otras aplicaciones y adaptarse al uso de base de datos, por esta razón se encuentran algunas lineas comentadas. 
   
- Espero que este codigo le pueda servir también a quienes estan dando sus primeros pasos en programación para comprender el uso de la tecnología. 
+ Espero que este desarrollo le pueda servir también a quienes estan dando sus primeros pasos en programación para comprender el uso de la tecnología. 
 
 
 ** Posibles errores en la carga del proyecto:
